@@ -1,0 +1,40 @@
+---
+- name: Install
+  hosts: all
+  remote_user: logan
+  become: yes
+  vars:
+    NODEJS_VERSION: "16"
+    ansible_distribution_release: "focal"
+
+  tasks:
+    - name: update upgrade
+      apt:
+        upgrade: yes
+        update_cache: yes
+    
+    - name: install go and node prereqs 
+      apt:
+        name:
+          - golang-go
+          - apt-transport-https
+          - gcc
+          - g++
+          - make
+        state: present
+      
+    - name: Install the gpg key for nodejs LTS
+      apt_key:
+        url: "https://deb.nodesource.com/gpgkey/nodesource.gpg.key"
+        state: present
+
+    - name: Install the nodejs LTS repos
+      apt_repository:
+        repo: "deb https://deb.nodesource.com/node_{{ NODEJS_VERSION }}.x {{ ansible_distribution_release }} main"
+        state: present
+        update_cache: yes
+
+    - name: Install the nodejs
+      apt:
+        name: nodejs
+        state: present

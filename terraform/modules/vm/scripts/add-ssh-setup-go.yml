@@ -1,0 +1,16 @@
+#cloud-config
+groups:
+  - ubuntu: [root,sys]
+  - logangrp
+
+users: 
+  - default
+  - name: logan
+    gecos: logan
+    shell: /bin/bash
+    primary_group: logangrp
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    groups: users, admin
+    lock_passwd: true
+    ssh_authorized_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDgoRXoTQdlkr1389RVJ+pTGFxtlDHnIUSkz4SpeyrNvDuSdXZ2o0e84ZQWqeuw0CgqFmFCNcPTLjMzJ8FQ6GMoB+IiIrR1hb0SdxbQhDGqLE9d8T1srLIN7aanjaa9Pi7HmiZIKK04ObAsxrnzLU9ZMbrdHwC4/hGWAnApk49Kz4Xr0hBf4cT8j5DhVcUGEeSvNy8/vXJ1J2o0h8vIG2yeDaG2ozNsaYksv10sO4pIow8XRIPsygaMTuljK89zVXUBdcH1aQCjGvTTkf2lpymBVWQyBv+poV3NjHd1rFWdP/RVrjSW1L9jD2/bz8VPJCKG9ufR0qcZYzyhZCZ3KE0b Logan@MacBook-Pro-2.local
