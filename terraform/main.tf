@@ -1,5 +1,5 @@
 module "vm" {
   source = "./modules/vm"
 
-  vm_name = "btc-tracker"
+  vm_name = local.vm_name
 }
