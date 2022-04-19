@@ -11,3 +11,4 @@ variable "vm_size" {
 }
 
 variable "vm_name" {}
+variable "env_name" {}

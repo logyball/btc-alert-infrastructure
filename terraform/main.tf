@@ -1,5 +1,6 @@
 module "vm" {
   source = "./modules/vm"
 
-  vm_name = local.vm_name
+  env_name = var.env_name
+  vm_name  = local.vm_name
 }
