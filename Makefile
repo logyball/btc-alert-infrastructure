@@ -1,44 +1,23 @@
-init-dev: terraform-clean
-	cd terraform && terraform init -backend-config=backends/dev.conf
+init: terraform-clean
+	cd terraform && terraform init
 
-init-prod: terraform-clean
-	cd terraform && terraform init -backend-config=backends/prod.conf
+plan: init
+	cd terraform && terraform plan
 
-plan-dev: init-dev
-	cd terraform && terraform plan -var-file=environments/dev.tfvars
+apply: init
+	cd terraform && terraform apply
 
-apply-dev: init-dev
-	cd terraform && terraform apply -var-file=environments/dev.tfvars
+apply-ci: init
+	cd terraform && terraform apply --auto-approve
 
-apply-dev-ci: init-dev
-	cd terraform && terraform apply -var-file=environments/dev.tfvars --auto-approve
+destroy: init
+	cd terraform && terraform destroy
 
-destroy-dev: init-dev
-	cd terraform && terraform destroy -var-file=environments/dev.tfvars
-
-destroy-dev-ci: init-dev
-	cd terraform && terraform destroy -var-file=environments/dev.tfvars --auto-approve
-
-plan-prod: init-prod
-	cd terraform && terraform plan -var-file=environments/prod.tfvars
-
-apply-prod: init-prod
-	cd terraform && terraform apply -var-file=environments/prod.tfvars
-
-apply-prod-ci: init-prod
-	cd terraform && terraform apply -var-file=environments/prod.tfvars --auto-approve
-
-destroy-prod: init-prod
-	cd terraform && terraform destroy -var-file=environments/prod.tfvars
-
-destroy-prod-ci: init-prod
-	cd terraform && terraform destroy -var-file=environments/prod.tfvars --auto-approve
+destroy-ci: init
+	cd terraform && terraform destroy --auto-approve
 
 terraform-clean:
 	cd terraform && rm -rf .terraform
 
-ansible-dev: init-dev
-	ansible-playbook ansible/playbook.yml -i $(shell cd terraform && terraform output -raw ip), --private-key ~/.ssh/aws/id_rsa_aws -v
-
-ansible-prod: init-prod
+ansible: init
 	ansible-playbook ansible/playbook.yml -i $(shell cd terraform && terraform output -raw ip), --private-key ~/.ssh/aws/id_rsa_aws -v

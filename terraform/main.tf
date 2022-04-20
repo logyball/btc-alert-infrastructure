@@ -4,3 +4,9 @@ module "vm" {
   env_name = var.env_name
   vm_name  = local.vm_name
 }
+
+module "networking" {
+  source = "./modules/networking"
+
+  dns_name = var.dns_name
+}
