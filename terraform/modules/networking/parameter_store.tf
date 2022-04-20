@@ -2,7 +2,7 @@ resource "aws_ssm_parameter" "ssl_cert" {
   name        = "/ssl/cert/arn"
   description = "ARN for the SSL cert"
   type        = "String"
-  value       = ""
+  value       = "placeholder"
 }
 
 resource "aws_ssm_parameter" "vpc_id" {
