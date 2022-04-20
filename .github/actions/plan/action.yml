@@ -1,14 +1,10 @@
 name: 'Terraform Plan'
 description: 'Initialize + Plan Terraform workflow'
-inputs:
-  environment-name:
-    description: 'Which environment this plan is being created for.  Prod or Dev.'
-    required: true
 runs:
   using: "composite"
   steps:
     - name: terraform initialize
-      run: terraform init -backend-config=backends/${{ inputs.environment-name }}.conf
+      run: terraform init
       shell: bash
       working-directory: terraform
 
@@ -19,6 +15,6 @@ runs:
     
     - name: terraform plan
       id: plan
-      run: terraform plan -var-file=environments/${{ inputs.environment-name }}.tfvars
+      run: terraform plan
       shell: bash
       working-directory: terraform

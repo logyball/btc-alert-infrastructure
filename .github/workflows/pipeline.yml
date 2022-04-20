@@ -42,8 +42,6 @@ jobs:
           aws-region: us-east-1
       
       - uses: ./.github/actions/plan
-        with:
-          environment-name: 'prod'
 
   apply:
     needs: [ 'format' ]
@@ -65,5 +63,3 @@ jobs:
           aws-region: us-east-1
 
       - uses: ./.github/actions/apply
-        with:
-          environment-name: 'prod'

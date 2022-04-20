@@ -1,18 +1,14 @@
 name: 'Terraform Apply'
 description: 'Terraform apply workflow'
-inputs:
-  environment-name:
-    description: 'Which environment this plan is being created for.  Prod or Dev.'
-    required: true
 runs:
   using: "composite"
   steps:
     - name: terraform initialize
-      run: terraform init -backend-config=backends/${{ inputs.environment-name }}.conf
+      run: terraform init
       shell: bash
       working-directory: terraform
 
     - name: terraform apply
-      run: terraform apply -var-file=environments/${{ inputs.environment-name }}.tfvars -auto-approve
+      run: terraform apply -auto-approve
       shell: bash
       working-directory: terraform
