@@ -87,7 +87,7 @@ jobs:
         uses: dawidd6/action-ansible-playbook@v2
         with:
           playbook: ansible/playbook.yml
-          key: ${{ secrets.SSH_PRIVATE_KEY_DEV }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           options: |
             -i "${{ steps.ip-address.outputs.ip-address }},"
             --verbose
