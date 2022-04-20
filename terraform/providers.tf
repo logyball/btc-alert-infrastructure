@@ -12,7 +12,7 @@ terraform {
     bucket         = "logyball-terraform"
     dynamodb_table = "logyball-terraform-locks"
 
-    // key passed in dynamically from backends/*.conf
+    key = "btc-tracker-prod"
   }
 }
 

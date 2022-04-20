@@ -23,30 +23,7 @@ jobs:
         run: terraform fmt -recursive -check
         working-directory: terraform
 
-  dev:
-    needs: [ 'format' ]
-    if: ${{ github.event_name == 'pull_request' }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: checkout
-        uses: actions/checkout@v2
-      - name: setup terraform
-        uses: hashicorp/setup-terraform@v1
-        with:
-          terraform_wrapper: false
-      
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
-
-      - uses: ./.github/actions/apply
-        with:
-          environment-name: 'dev'
-
-  plan-prod:
+  plan:
     needs: [ 'format' ]
     if: ${{ github.event_name == 'pull_request' }}
     runs-on: ubuntu-latest
@@ -65,10 +42,8 @@ jobs:
           aws-region: us-east-1
       
       - uses: ./.github/actions/plan
-        with:
-          environment-name: 'prod'
 
-  prod:
+  apply:
     needs: [ 'format' ]
     if: ${{ github.event_name == 'push' }}
     runs-on: ubuntu-latest
@@ -88,5 +63,3 @@ jobs:
           aws-region: us-east-1
 
       - uses: ./.github/actions/apply
-        with:
-          environment-name: 'prod'
