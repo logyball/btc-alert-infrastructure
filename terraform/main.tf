@@ -5,6 +5,7 @@ module "vm" {
   vm_sg_name = module.security.vm_sg_name
   lb_sg_id   = module.security.elb_sg_id
   vpc_id     = module.networking.vpc_id
+  ssl_arn    = module.networking.ssl_arn
 }
 
 module "networking" {

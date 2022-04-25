@@ -49,6 +49,18 @@ resource "aws_lb_target_group_attachment" "btc" {
   port             = 3000
 }
 
+resource "aws_lb_listener" "api" {
+  load_balancer_arn = aws_lb.btc.arn
+  port              = "443"
+  protocol          = "HTTPS"
+  ssl_policy        = "ELBSecurityPolicy-2016-08"
+  certificate_arn   = var.ssl_arn
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.btc.arn
+  }
+}
 
 data "template_file" "init_data" {
   template = file("${path.module}/scripts/add-ssh-setup-go.yml")
