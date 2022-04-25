@@ -10,5 +10,7 @@ variable "vm_size" {
   default = "t2.micro"
 }
 
+variable "vm_sg_name" {}
+variable "lb_sg_id" {}
+variable "vpc_id" {}
 variable "vm_name" {}
-variable "env_name" {}
