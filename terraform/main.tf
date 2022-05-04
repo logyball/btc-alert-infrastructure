@@ -19,3 +19,7 @@ module "security" {
 
   vpc_id = module.networking.vpc_id
 }
+
+module "ses" {
+  source = "./modules/ses"
+}
